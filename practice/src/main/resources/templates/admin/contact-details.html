@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>お問い合わせ詳細</title>
+    <style>
+		.logout-container {
+					position: fixed;
+					bottom: 20px;
+					right: 20px;
+		}
+        
+    </style>
+</head>
+<body>
+    <h1>お問い合わせ詳細</h1>
+	<form th:action="@{/admin/contacts/{id}(id=${contact.id})}" th:object="${contact}" method="post">
+    <table border="1">
+        <tr>
+            <td>お問い合わせID</td>
+			<td>
+            <input type="text" th:field="*{id}"/>
+			</td>
+        </tr>
+        <tr>
+            <td>姓</td>
+			<td>
+            <input type="text" th:field="*{lastName}"/>
+			</td>
+        </tr>
+        <tr>
+            <td>名</td>
+			<td>
+            <input type="text" th:field="*{firstName}"/>
+			</td>
+        </tr>
+        <tr>
+            <td>メールアドレス</td>
+			<td>
+            <input type="email" th:field="*{email}"/>
+			</td>
+        </tr>
+        <tr>
+            <td>電話番号</td>
+			<td>
+            <input type="tel" th:field="*{phone}">
+			</td>
+        </tr>
+        <tr>
+            <td>郵便番号</td>
+			<td>
+            <input type="text" th:field="*{zipCode}">
+			</td>
+        </tr>
+        <tr>
+            <td>住所</td>
+			<td>
+            <input type="text" th:field="*{address}">
+			</td>
+        </tr>
+        <tr>
+            <td>建物名</td>
+			<td>
+            <input type="text" th:field="*{buildingName}">
+			</td>
+        </tr>
+        <tr>
+			<td>お問い合わせ種別</td>
+			<td>
+				<select name="contactType">
+					<option th:value="services">サービスに関するお問い合わせ</option>
+					<option th:value="technicalQuestions">技術的なお問い合わせ</option>
+					<option th:value="others">その他</option>
+				</select>
+				<span th:if="${#fields.hasErrors('contactType')}" th:errors="*{contactType}" style="color: red"></span>
+			</td>	        
+        </tr>
+        <tr>
+            <td>内容</td>
+			<td>
+				<textarea th:field="*{body}" row="4" cols="80"></textarea>
+				<span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" style="color: red"></span>
+			</td>
+        </tr>
+        <tr>
+            <td>作成日時</td>
+             <td><input type="text" th:value="${contact.createdAt}" readonly/></td>
+        </tr>
+        <tr>
+            <td>更新日時</td>
+			<td><input type="text" th:value="${contact.updatedAt}" readonly/></td>
+        </tr>
+    </table>
+	</form>
+	<form th:action="@{/admin/contacts/{id}/edit(id=${contact.id})}" method="get">
+		<button type="submit">編集</button>
+	</form>
+	<div>
+		<formdiv class="logout-container">
+			<form th:action="@{/admin/logout}" method="post">
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+			   <button type="submit">ログアウト</button>
+			</form>
+	</div>
+	
+</body>
+</html>

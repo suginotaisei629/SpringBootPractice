@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>お問い合わせ一覧</title>
+	<style>
+		.logout-container {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+		 }
+		 
+		
+	</style>
+</head>
+<body>
+    <h1>お問い合わせ一覧</h1>
+	<form th:action="@{/admin/contacts}" th:object="${contact2}" method="post">
+	<table border="1">
+		</tr>
+			<td>お問い合わせID</td>
+			<td>
+				<input type="text" th:field="*{id}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>姓</td>
+			<td>
+				<input type="text" th:field="*{lastName}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>名</td>
+			<td>
+				<input type="text" th:field="*{firstName}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>お問い合わせ種別</td>
+			<td>
+				<input type="text" th:field="*{contactType}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>作成日時</td>
+			<td>
+				<input type="text" th:field="*{createdAt}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>更新日時</td>
+			<td>
+				<input type="text" th:field="*{updatedAt}"/>
+			</td>
+		</tr>
+	</table>
+	<button type="submit">送信</button> 
+	</form>
+	<form th:if="${contact != null}" th:action="@{/admin/contacts/{id}(id=${contact.id})}" method="get">
+		<button type="submit">送信</button>
+	</form>
+	<div class="logout-container">
+		<form th:action="@{/admin/logout}" method="post">
+			<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+		    <input type="submit" value="ログアウト">
+		</form>
+	</div>
+</body>
+</html>
