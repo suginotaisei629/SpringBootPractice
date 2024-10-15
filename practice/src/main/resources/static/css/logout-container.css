@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.logout-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
